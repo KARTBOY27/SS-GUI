@@ -78,7 +78,7 @@ Sell.MouseButton1Down:connect(function()
     local cs = game.workspace:FindFirstChild("SellArea").Position
     local p = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
     local Last = p.CFrame
-    
+    wait(0.5)
     pos = CFrame.new(cs + Vector3.new(0,2.5,0))
     p.CFrame = pos
     wait(0.5)
@@ -113,8 +113,31 @@ Farm.TextSize = 32
 Farm.MouseButton1Click:connect(function()
 	while wait(0.01) do
 
-		local Remote = game.ReplicatedStorage.Events['Clicked']
-		Remote:FireServer()
+		if Players.K4RTB0Y27.leaderstats.Strength.Value == 30 then
 
+			local cs = game.workspace:FindFirstChild("SellArea").Position
+			local p = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+			local Last = p.CFrame
+			wait(0.5)
+			pos = CFrame.new(cs + Vector3.new(0,2.5,0))
+			p.CFrame = pos
+			wait(0.5)
+			p.CFrame = Last
+			
+		else
+
+			local LocalPlayer = Players.LocalPlayer
+			local Remote = game.ReplicatedStorage.Events['Clicked']
+			Remote:FireServer()
+
+		end
 	end
+end)
+
+--anti-afk
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
